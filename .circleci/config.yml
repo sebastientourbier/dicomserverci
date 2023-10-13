@@ -12,7 +12,7 @@ jobs:
           command: | # create whl and use pipenv to install dependencies
             echo "PWD: ${PWD}"
             mkdir -p "${PWD}"/tmp
-            movescu -ll debug www.dicomserver.co.uk 104 \
+            sudo movescu -ll debug www.dicomserver.co.uk 104 \
               -aec DICOMSERVER_Test -aet DICOMSERVER_Test -aem DICOMSERVER_Test \
               -k 0008,0052=PATIENT --patient \
               --key 0010,0020=PAT009 \
