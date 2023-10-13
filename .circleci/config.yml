@@ -1,0 +1,27 @@
+version: 2.1
+jobs:
+  build_test:
+    docker:
+      - image: cimg/python:3.8.17
+    steps:
+      - checkout # checkout source code to working directory
+      - run:
+          command: | # install dcmtk
+          sudo apt-get install dcmtk tree
+      - run:
+          command: | # create whl and use pipenv to install dependencies
+            echo "PWD: ${PWD}"
+            mkdir -p "${PWD}"/tmp
+            movescu -ll debug www.dicomserver.co.uk 104 \
+              -aec DICOMSERVER_Test -aet DICOMSERVER_Test -aem DICOMSERVER_Test \
+              -k 0008,0052=PATIENT --patient \
+              --key 0010,0020=PAT009 \
+              --key 0020,000d=1.2.528.1.1001.100.2.3865.6101.93503564261.20070711142700372 \
+              --key 0020,000e=1.2.528.1.1001.100.3.3865.6101.93503564261.20070711142700388 \
+              --port 104 -od "${PWD}"/tmp
+            tree "${PWD}"/tmp
+ 
+workflows:
+  build_test_publish:
+    jobs:
+      - build_test
