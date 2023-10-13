@@ -7,7 +7,7 @@ jobs:
       - checkout # checkout source code to working directory
       - run:
           command: | # install dcmtk
-            sudo apt-get install dcmtk tree
+            sudo apt-get update && sudo apt-get install dcmtk tree
       - run:
           command: | # create whl and use pipenv to install dependencies
             echo "PWD: ${PWD}"
