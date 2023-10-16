@@ -13,8 +13,8 @@ jobs:
             echo "PWD: ${PWD}"
             ls -la "${PWD}"
             mkdir -p "${PWD}"/tmp/dcmqrscpstore
-            cp /home/circleci/project/.circleci/dcmqrscp.cfg /tmp/dcmqrscpstore/dcmqrscp.cfg
             cd "${PWD}"/tmp/dcmqrscpstore
+            cp /home/circleci/project/.circleci/dcmqrscp.cfg /tmp/dcmqrscpstore/dcmqrscp.cfg
             dcmqrscp -d -c "${PWD}"/dcmqrscp.cfg
           background: true
       - run:
