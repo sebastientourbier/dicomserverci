@@ -12,8 +12,9 @@ jobs:
           command: | # launch DICOM C-Store Query/Retrieve SCP in the background
             echo "PWD: ${PWD}"
             mkdir -p "${PWD}"/tmp/dcmqrscpstore
+            cp /home/circleci/project/.circleci/dcmqrscp.cfg /tmp/dcmqrscpstore/dcmqrscp.cfg
             cd "${PWD}"/tmp/dcmqrscpstore
-            dcmqrscp -d -c "${PWD}"/.circleci/dcmqrscp.cfg
+            dcmqrscp -d -c "${PWD}"/dcmqrscp.cfg
           background: true
       - run:
           command: | # create whl and use pipenv to install dependencies
