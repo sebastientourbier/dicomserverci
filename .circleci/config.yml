@@ -15,6 +15,7 @@ jobs:
             mkdir -p "${PWD}"/tmp/dcmqrscpstore
             cd "${PWD}"/tmp/dcmqrscpstore
             dcmqrscp -d -c /home/circleci/project/.circleci/dcmqrscp.cfg
+            storescu -v --aetitle SCU --call SCU_STORE localhost 4444 /home/circleci/project/.circleci/dicom
           background: true
       - run:
           command: | # create whl and use pipenv to install dependencies
@@ -23,9 +24,9 @@ jobs:
             movescu -d 127.0.0.1 4444 \
               -aec SCU_STORE -aet SCU \
               -k 0008,0052=PATIENT --patient \
-              --key 0010,0020=PAT009 \
-              --key 0020,000d=1.2.528.1.1001.100.2.3865.6101.93503564261.20070711142700372 \
-              --key 0020,000e=1.2.528.1.1001.100.3.3865.6101.93503564261.20070711142700388 \
+              --key 0010,0020=PACSMAN1 \
+              --key 0020,000d=1.2.826.0.1.3680043.8.498.69409053433509233234015730854007104605 \
+              --key 0020,000e=1.2.826.0.1.3680043.8.498.12814031504397760878777975869157995647 \
               --port 11112 -od "${PWD}"/tmp
             # movescu -ll debug www.dicomserver.co.uk 104 \
             #   -aec DICOMSERVER_Test -aet DICOMSERVER_Test -aem DICOMSERVER_Test \
