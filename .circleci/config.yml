@@ -14,7 +14,7 @@ jobs:
             ls -la "/home/circleci/project/.circleci/"
             mkdir -p "${PWD}"/tmp/dcmqrscpstore
             cd "${PWD}"/tmp/dcmqrscpstore
-            cp /home/circleci/project/.circleci/dcmqrscp.cfg /tmp/dcmqrscpstore/dcmqrscp.cfg
+            sudo cp /home/circleci/project/.circleci/dcmqrscp.cfg /tmp/dcmqrscpstore/dcmqrscp.cfg
             dcmqrscp -d -c "${PWD}"/dcmqrscp.cfg
           background: true
       - run:
