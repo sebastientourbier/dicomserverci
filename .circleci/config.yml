@@ -11,6 +11,7 @@ jobs:
       - run:
           command: | # launch DICOM C-Store Query/Retrieve SCP in the background
             echo "PWD: ${PWD}"
+            ls -la "${PWD}"
             mkdir -p "${PWD}"/tmp/dcmqrscpstore
             cp /home/circleci/project/.circleci/dcmqrscp.cfg /tmp/dcmqrscpstore/dcmqrscp.cfg
             cd "${PWD}"/tmp/dcmqrscpstore
