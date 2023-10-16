@@ -9,10 +9,11 @@ jobs:
           command: | # install dcmtk
             sudo apt-get update && sudo apt-get install dcmtk tree
       - run:
-          command: | # launch DICOM C-Store SCP in the background
+          command: | # launch DICOM C-Store Query/Retrieve SCP in the background
             echo "PWD: ${PWD}"
-            mkdir -p "${PWD}"/tmp/scpstore
-            storescp -d -od "${PWD}"/tmp/scpstore 4444
+            mkdir -p "${PWD}"/tmp/dcmqrscpstore
+            cd "${PWD}"/tmp/dcmqrscpstore
+            dcmqrscp -d 4444
           background: true
       - run:
           command: | # create whl and use pipenv to install dependencies
