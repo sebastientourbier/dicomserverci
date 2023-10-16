@@ -13,7 +13,7 @@ jobs:
             echo "PWD: ${PWD}"
             mkdir -p "${PWD}"/tmp/dcmqrscpstore
             cd "${PWD}"/tmp/dcmqrscpstore
-            dcmqrscp -d -c .circleci/dcmqrscp.cfg
+            dcmqrscp -d -c "${PWD}"/.circleci/dcmqrscp.cfg
           background: true
       - run:
           command: | # create whl and use pipenv to install dependencies
