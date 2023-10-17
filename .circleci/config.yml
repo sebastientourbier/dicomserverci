@@ -6,22 +6,26 @@ jobs:
     steps:
       - checkout # checkout source code to working directory
       - run:
-          command: | # install dcmtk
+          name: Install DCMTK
+          command: |
             sudo apt-get update && sudo apt-get install dcmtk tree
       - run:
-          command: | # launch DICOM C-Store Query/Retrieve SCP in the background
+          name: Launch DICOM C-Store Query/Retrieve SCP in the background
+          command: |
             mkdir -p /tmp/dcmqrscpstore/SCU_STORE
             cd /tmp/dcmqrscpstore
             dcmqrscp -d -c /home/circleci/project/.circleci/dcmqrscp.cfg
             tree /tmp/dcmqrscpstore/SCU_STORE
           background: true
       - run:
-          command: | # send the testing dicom files to the DICOM C-Store Query/Retrieve SCP
+          name: Send testing dicom files to the DICOM C-Store Query/Retrieve SCP
+          command: |
             storescu -d --scan-directories --aetitle SCU --call SCU_STORE localhost 4444 /home/circleci/project/.circleci/dicom
             tree /tmp/dcmqrscpstore/SCU_STORE
           background: false
       - run:
-          command: | # test to download / copy the dicom files with movescu
+          name: Test movescu command to download / copy the stored testing dicom files
+          command: |
             mkdir -p /tmp/movescu
             movescu -d 127.0.0.1 4444 \
               -aec SCU_STORE -aet SCU \
