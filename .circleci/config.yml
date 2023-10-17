@@ -10,19 +10,23 @@ jobs:
             sudo apt-get update && sudo apt-get install dcmtk tree
       - run:
           command: | # launch DICOM C-Store Query/Retrieve SCP in the background
-            echo "PWD: ${PWD}"
             ls -la "/home/circleci/project/.circleci/"
-            mkdir -p "${PWD}"/tmp/dcmqrscpstore
-            cd "${PWD}"/tmp/dcmqrscpstore
+            mkdir -p /tmp/dcmqrscpstore/SCU_STORE
+            cd /tmp/dcmqrscpstore
             # dcmqridx -v /tmp/dcmqrscpstore/SCU_STORE /home/circleci/project/.circleci/dicom/*.dcm
             dcmqrscp -d -c /home/circleci/project/.circleci/dcmqrscp.cfg
             sleep 20
             tree /tmp/dcmqrscpstore/SCU_STORE
+          background: true
+      - run:
+          command: | # launch DICOM C-Store Query/Retrieve SCP in the background
+            cd /tmp/dcmqrscpstore
+            # dcmqridx -v /tmp/dcmqrscpstore/SCU_STORE /home/circleci/project/.circleci/dicom/*.dcm
             echo "Run storescu"
             storescu -d --aetitle SCU --call SCU_STORE localhost 4444 /home/circleci/project/.circleci/dicom
             sleep 20
             tree /tmp/dcmqrscpstore/SCU_STORE
-          background: true
+          background: false
       - run:
           command: | # create whl and use pipenv to install dependencies
             echo "PWD: ${PWD}"
@@ -42,6 +46,7 @@ jobs:
             #   --key 0020,000e=1.2.528.1.1001.100.3.3865.6101.93503564261.20070711142700388 \
             #   --port 104 -od "${PWD}"/tmp
             tree "${PWD}"/tmp
+          background: false
  
 workflows:
   build_test_publish:
