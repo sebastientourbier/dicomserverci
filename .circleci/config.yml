@@ -10,7 +10,7 @@ jobs:
           command: |
             sudo apt-get update && sudo apt-get install dcmtk tree
       - run:
-          name: Launch DICOM C-Store Query/Retrieve SCP in the background
+          name: dcmqrscp - Launch DICOM C-Store Query/Retrieve SCP in the background
           command: |
             mkdir -p /tmp/dcmqrscpstore/SCU_STORE
             cd /tmp/dcmqrscpstore
@@ -18,13 +18,13 @@ jobs:
             tree /tmp/dcmqrscpstore/SCU_STORE
           background: true
       - run:
-          name: Send testing dicom files to the DICOM C-Store Query/Retrieve SCP
+          name: storescu - Send testing dicom files to the DICOM C-Store Query/Retrieve SCP
           command: |
             storescu -d --scan-directories --aetitle SCU --call SCU_STORE localhost 4444 /home/circleci/project/.circleci/dicom
             tree /tmp/dcmqrscpstore/SCU_STORE
           background: false
       - run:
-          name: Test movescu command to download / copy the stored testing dicom files
+          name: movescu - Test to download / copy the stored testing dicom files
           command: |
             mkdir -p /tmp/movescu
             movescu -d 127.0.0.1 4444 \
