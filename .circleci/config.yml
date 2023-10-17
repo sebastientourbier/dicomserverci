@@ -36,8 +36,12 @@ jobs:
               --port 11112 -od /tmp/movescu
             tree /tmp/movescu
           background: false
+      - run:
+          name: Archive folder of dicoms downloaded with movescu
+          command: tar -czf /tmp/movescu_dicoms.tar.gz /tmp/movescu
       - store_artifacts:
-          path: /tmp/movescu
+          path: /tmp/movescu_dicoms.tar.gz
+          destination: archived_dicoms
  
 workflows:
   dicomserver_tests:
