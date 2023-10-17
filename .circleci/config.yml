@@ -15,7 +15,7 @@ jobs:
             mkdir -p "${PWD}"/tmp/dcmqrscpstore
             cd "${PWD}"/tmp/dcmqrscpstore
             # dcmqridx -v /tmp/dcmqrscpstore/SCU_STORE /home/circleci/project/.circleci/dicom/*.dcm
-            sudo dcmqrscp -d -c /home/circleci/project/.circleci/dcmqrscp.cfg
+            dcmqrscp -d -c /home/circleci/project/.circleci/dcmqrscp.cfg
             storescu -v --aetitle SCU --call SCU_STORE localhost 4444 /home/circleci/project/.circleci/dicom
           background: true
       - run:
