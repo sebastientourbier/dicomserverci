@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build_test:
+  dicomserver_movescu_test:
     docker:
       - image: cimg/python:3.8.17
     steps:
@@ -38,6 +38,6 @@ jobs:
           background: false
  
 workflows:
-  build_test_publish:
+  dicomserver_tests:
     jobs:
-      - build_test
+      - dicomserver_movescu_test
