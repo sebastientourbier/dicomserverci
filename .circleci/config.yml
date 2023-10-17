@@ -16,9 +16,11 @@ jobs:
             cd "${PWD}"/tmp/dcmqrscpstore
             # dcmqridx -v /tmp/dcmqrscpstore/SCU_STORE /home/circleci/project/.circleci/dicom/*.dcm
             dcmqrscp -d -c /home/circleci/project/.circleci/dcmqrscp.cfg
+            sleep 20
             tree /tmp/dcmqrscpstore/SCU_STORE
             echo "Run storescu"
             storescu -d --aetitle SCU --call SCU_STORE localhost 4444 /home/circleci/project/.circleci/dicom
+            sleep 20
             tree /tmp/dcmqrscpstore/SCU_STORE
           background: true
       - run:
