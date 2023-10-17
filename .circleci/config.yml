@@ -16,7 +16,7 @@ jobs:
             cd "${PWD}"/tmp/dcmqrscpstore
             # dcmqridx -v /tmp/dcmqrscpstore/SCU_STORE /home/circleci/project/.circleci/dicom/*.dcm
             dcmqrscp -d -c /home/circleci/project/.circleci/dcmqrscp.cfg
-            storescu -v --aetitle SCU --call SCU_STORE localhost 4444 /home/circleci/project/.circleci/dicom
+            storescu -d --aetitle SCU --call SCU_STORE localhost 4444 /home/circleci/project/.circleci/dicom
           background: true
       - run:
           command: | # create whl and use pipenv to install dependencies
