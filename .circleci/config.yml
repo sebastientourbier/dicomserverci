@@ -36,6 +36,8 @@ jobs:
               --port 11112 -od /tmp/movescu
             tree /tmp/movescu
           background: false
+      - store_artifacts:
+          path: /tmp/movescu
  
 workflows:
   dicomserver_tests:
